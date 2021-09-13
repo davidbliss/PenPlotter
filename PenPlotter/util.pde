@@ -280,6 +280,8 @@ JFileChooser fc;
                                                if (file.getPath().endsWith(".svg"))
                                                {
                                                    currentPlot = new SvgPlot();
+                                                   // overwrite offX to place SVG properly
+                                                   offX = int(-1* (paperWidth/2.0) * 25.4);
                                                }
                                                else if (gcodeFile(file.getPath()))
                                                {
