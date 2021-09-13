@@ -4,13 +4,13 @@ JFileChooser fc;
 
      String propertiesFilename = "default.properties.txt";
 
-   
-    
+
+
  class MyExtensionFileFilter extends FileFilter
  {
    String description;
    String ext;
-   
+
     public MyExtensionFileFilter(String description,String ext)
     {
       this.description = description;
@@ -19,7 +19,7 @@ JFileChooser fc;
     public String getDescription() {
       return description;
     }
-     
+
     public boolean accept(File f) {
       if (f.isDirectory()) {
       return true;
@@ -32,16 +32,16 @@ JFileChooser fc;
       return ext;
     }
  }
-                                        
+
     public class MyFileChooser extends JFileChooser {
     private String name;
-    
+
     public String getName()
     {
       return name;
     }
-    
-    
+
+
 
     public MyFileChooser(String name) {
         this.name = name;
@@ -53,14 +53,14 @@ JFileChooser fc;
                  filename = MyFileChooser.this.getSelectedFile().getName();
                }
                 String extnew = null;
-  
+
                 if (e.getNewValue() == null || !(e.getNewValue() instanceof MyExtensionFileFilter)) {
                     return;
                 }
 
                 MyExtensionFileFilter newValue = ((MyExtensionFileFilter) e.getNewValue());
                 extnew = newValue.getExtension();
-              
+
                 String name = filename;
                  int dot = filename.indexOf('.');
                  if (dot > 0)
@@ -82,15 +82,15 @@ JFileChooser fc;
     }
 
     @Override
-    public void approveSelection() { 
+    public void approveSelection() {
         if(getDialogType() == SAVE_DIALOG) {
-            File f = getSelectedFile();  
-            if (f.exists()) {  
-                String msg = "Replace File?";  
-                msg = MessageFormat.format(msg, new Object[] { f.getName() });  
+            File f = getSelectedFile();
+            if (f.exists()) {
+                String msg = "Replace File?";
+                msg = MessageFormat.format(msg, new Object[] { f.getName() });
                 int option = JOptionPane.showConfirmDialog(this, msg, "", JOptionPane.YES_NO_OPTION);
-                if (option == JOptionPane.NO_OPTION ) {  
-                    return;  
+                if (option == JOptionPane.NO_OPTION ) {
+                    return;
                 }
             }
             String ext = ".gcode";
@@ -105,7 +105,7 @@ JFileChooser fc;
             com = oldcom;
 
         }
-        super.approveSelection();   
+        super.approveSelection();
     }
 
     @Override
@@ -117,7 +117,7 @@ JFileChooser fc;
     }
 }
 
-    
+
     public void exportGcode()
     {
         SwingUtilities.invokeLater(new Runnable()
@@ -136,7 +136,7 @@ JFileChooser fc;
                                            fc.setAcceptAllFileFilterUsed(false);
                                            fc.addChoosableFileFilter(new MyExtensionFileFilter("PEN Plotter gcode",".gcode"));
                                            fc.addChoosableFileFilter(new MyExtensionFileFilter("CNC gcode",".cnc"));
-                                           
+
                                            fc.showSaveDialog(frame);
 
                                        }
@@ -179,10 +179,11 @@ JFileChooser fc;
             props.setProperty("cnc.safeHeight",""+cncSafeHeight);
             props.setProperty("servo.dwell",""+servoDwell);
             props.setProperty("servo.upValue",""+servoUpValue);
+            props.setProperty("servo.touchValue",""+servoTouchValue);
             props.setProperty("servo.downValue",""+servoDownValue);
             props.setProperty("paper.width.inches",""+nf(paperWidth,0,1));
             props.setProperty("paper.height.inches",""+nf(paperHeight,0,1));
-            
+
 
             String fileToSave = sketchPath(propertiesFilename);
             File f = new File(fileToSave);

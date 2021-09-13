@@ -89,7 +89,7 @@
         send("G2 X" + x + " Y" + y + " I" + i + " J" + j + "\n");
         updatePos(x, y);
     }
-    
+
     public void sendG2(float x, float y, float r) {
         send("G2 X" + x + " Y" + y + " R" + r+"\n");
         updatePos(x, y);
@@ -99,7 +99,7 @@
         send("G3 X" + x + " Y" + y + " I" + i + " J" + j + "\n");
         updatePos(x, y);
     }
-    
+
     public void sendG3(float x, float y, float r) {
         send("G3 X" + x + " Y" + y + " R" + r+"\n");
         updatePos(x, y);
@@ -125,7 +125,7 @@
     public void sendSpecs() {
         send("M4 X" + machineWidth + " E" + penWidth + " S" + stepsPerRev + " P" + mmPerRev + "\n");
     }
-    
+
     public void sendPenUp() {
      if (useSolenoid == true) {
        send("G4 P"+servoDwell+"\n");//pause
@@ -137,12 +137,18 @@
        send("G4 P"+servoDwell+"\n");//pause
      } else {
       send("G4 P"+servoDwell+"\n");//pause
-      send("M340 P3 S"+servoUpValue+"\n");
+      send("M340 P3 S"+servoTouchValue+"\n");
+      int servoValue = servoTouchValue;
+      while (servoValue > servoUpValue) {
+        servoValue -= 20;
+        send("M340 P3 S"+servoValue+"\n");
+      }
+      // send("M340 P3 S"+servoUpValue+"\n");
       send("G4 P"+servoDwell+"\n");
      }
      showPenDown();
     }
-    
+
 
     public void sendPenDown() {
     if (useSolenoid == true) {
@@ -155,6 +161,11 @@
          send("G4 P"+servoDwell+"\n");//pause
        } else {
         send("G4 P"+servoDwell+"\n");
+        int servoValue = servoUpValue;
+        while (servoValue < servoTouchValue) {
+          servoValue += 20;
+          send("M340 P3 S"+servoValue+"\n");
+        }
         send("M340 P3 S"+servoDownValue+"\n");
         send("G4 P"+servoDwell+"\n");
       }
@@ -164,12 +175,12 @@
     public void sendAbsolute() {
         send("G90\n");
     }
-    
+
 
     public void sendRelative() {
         send("G91\n");
     }
-    
+
     public void sendMM()
     {
       send("G21\n");
@@ -237,7 +248,7 @@
 
     public void serialEvent() {
 
-     
+
         if (myPort == null || myPort.available() <= 0) return;
 
 
@@ -246,7 +257,7 @@
             val = trim(val);
             if (!val.contains("wait"))
                 println(val);
-                
+
             if (val.contains("wait") || val.contains("echo"))
             {
                 okCount = 0;
@@ -254,18 +265,18 @@
                   initArduino();
                 else
                   nextMsg();
-            }          
+            }
             else if(val.contains("Resend") && lastCmd != null)
             {
               okCount=0;
               oksend(lastCmd);
-            }            
+            }
             else if (val.contains("ok")) {
                 okCount=0;
                 nextMsg();
             }
         }
     }
-    
+
     public void export(File file){}
 }

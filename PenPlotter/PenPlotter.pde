@@ -123,12 +123,12 @@ import java.awt.BorderLayout;
     int statusColor = color(0, 0, 0);
     int motorOnColor = color(255, 0, 0);
     int motorOffColor = color(0, 0, 255);
-    
-    int penColor = color(0, 0, 0,255);    
+
+    int penColor = color(0, 0, 0,255);
     int previewColor = color(0,0,0,255);
     int whilePlottingColor = color(0,0,0,64);
     int rapidColor = color(0,255,0,64);
-    
+
     int buttonPressColor = color(227, 230, 255);
     int buttonHoverColor = color(201, 206, 255);
     int buttonUpColor = color(115, 117, 216);
@@ -161,13 +161,14 @@ import java.awt.BorderLayout;
     long freeMemory;
     long totalMemory;
     boolean useSolenoid = false; //If used solinoid as lifting pen
-    int solenoidUP = 1;//Solinoid on or off when UP 
+    int solenoidUP = 1;//Solinoid on or off when UP
     int servoDwell = 250;
     int servoUpValue = 2350;
     int servoDownValue = 1500;
+    int servoTouchValue = 1500;
     int rate;
     int tick;
-    
+
     float paperWidth = 8.5;
     float paperHeight = 11;
     public static Console console;
@@ -277,14 +278,15 @@ import java.awt.BorderLayout;
 
         userScale = Float.parseFloat(props.getProperty("svg.UserScale"));
         scaleSlider.setValue(userScale);
-        
+
         servoDwell = Integer.parseInt(props.getProperty("servo.dwell"));
         servoUpValue = Integer.parseInt(props.getProperty("servo.upValue"));
         servoDownValue = Integer.parseInt(props.getProperty("servo.downValue"));
-        
+        servoTouchValue = Integer.parseInt(props.getProperty("servo.touchValue"));
+
         paperWidth = Float.parseFloat(props.getProperty("paper.width.inches"));
         paperHeight = Float.parseFloat(props.getProperty("paper.height.inches"));
-        
+
         updateScale();
 
         handles = new Handle[6];
@@ -369,13 +371,13 @@ import java.awt.BorderLayout;
             flipY *= -1;
             updateScale();
         }
-        
+
         if (key == 'c')
          {
            println("control");
            initLogging();
          }
-         
+
          if (key == 'd')
          {
            println("draw");
@@ -385,8 +387,8 @@ import java.awt.BorderLayout;
          {
            println("no draw");
            draw = false;
-         }        
-         
+         }
+
     }
 void initLogging()
 {
@@ -596,7 +598,7 @@ void initLogging()
     public void draw()
     {
         background(backgroundColor);
-        // I put the if(draw) arround all the drawing routines see if just placing it around the drawing of the image 
+        // I put the if(draw) arround all the drawing routines see if just placing it around the drawing of the image
         // below is enough
         if(draw)
         {
@@ -604,19 +606,19 @@ void initLogging()
 
           drawPage();
           drawOrigin();
-          drawTicks(); 
+          drawTicks();
           drawPaper();
 
           for (Handle handle : handles) {
               handle.update();
               handle.display();
           }
-        
+
           if (currentPlot.isLoaded())
           {
               currentPlot.draw();
           }
-      
+
           drawGondola();
 
 
@@ -697,7 +699,7 @@ void initLogging()
      //   noFill();
      //   rect(scaleX(homeX - pWidth / 2), scaleY(homeY), pWidth * zoomScale, pHeight * zoomScale);
      //   rect(scaleX(homeX - pHeight / 2), scaleY(homeY), pHeight * zoomScale, pWidth * zoomScale);
-        
+
 
     }
 
@@ -733,7 +735,7 @@ void initLogging()
           fill(cropColor);
           stroke(cropColor);
           rect(cropRight-10, cropTop+(cropBottom-cropTop)/2-5, 10, 10);
-          
+
             cropRight = mouseX;
             if (cropRight < imageX+20)
                 cropRight = imageX+20;
