@@ -642,8 +642,8 @@ on this endstop.
 #define DISABLE_E false
 
 // Inverting axis direction
-#define INVERT_X_DIR true
-#define INVERT_Y_DIR true
+#define INVERT_X_DIR false
+#define INVERT_Y_DIR false
 #define INVERT_Z_DIR true
 
 //// ENDSTOP SETTINGS:
@@ -1278,4 +1278,3 @@ Values must be in range 1..255
 #define UI_SET_EXTRUDER_RETRACT_DISTANCE 3 // mm
 
 #endif
-
