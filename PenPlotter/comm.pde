@@ -136,7 +136,7 @@
        }
        send("G4 P"+servoDwell+"\n");//pause
      } else {
-      send("G4 P"+servoDwell+"\n");//pause
+      send("G4 P0\n");//pause for 0 to be sure that previous draw finishes
       send("M340 P3 S"+servoTouchValue+"\n");
       int servoValue = servoTouchValue;
       while (servoValue > servoUpValue) {
@@ -167,7 +167,7 @@
           send("M340 P3 S"+servoValue+"\n");
         }
         send("M340 P3 S"+servoDownValue+"\n");
-        send("G4 P"+servoDwell+"\n");
+        send("G4 P"+servoDwell+"\n"); // pause to let pen settle
       }
       showPenUp();
     }
