@@ -1,6 +1,10 @@
 class Plot {
         boolean loaded;
         boolean plotting;
+        
+        // TODO: implement penUp/Down and pause in queue, triggered what was Abort
+        boolean isPaused;
+        
         boolean isImage;
         int plotColor = previewColor;
         int penIndex;
@@ -26,6 +30,19 @@ class Plot {
         boolean isImage()
         {
             return isImage;
+        }
+        
+        public void pause(){
+          if(isPaused == false){
+            println("PAUSED");
+            isPaused = true;
+            com.sendPenUp();
+          } else {
+            println("UNPAUSED");
+            com.sendPenDown();
+            isPaused = false;
+            currentPlot.nextPlot(true);
+          }
         }
 
         public void clear() {

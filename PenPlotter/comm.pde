@@ -112,6 +112,10 @@
     public void sendHome() {
         send("M1 Y" + homeY + "\n");
         updatePos(homeX, homeY);
+        send("G91 \n");
+        send("G0 Y1.0\n");
+        send("G0 Y-1.0\n");
+        
     }
 
     public void sendSpeed() {

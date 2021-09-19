@@ -64,13 +64,14 @@
           else
             return "0/"+penPaths.size();
         }
-        public void nextPlot(boolean preview) {
+        public void nextPlot(boolean preview) {          
+          // TODO: need to be sure nextPlot get calls again when ready to proceed.
+          if(isPaused!=true){
             if (svgPathIndex < 0) {
                 plotting= false;
                 plotDone();
                 return;
             }
-
 
             if (svgPathIndex < penPaths.size()) {
                 if (svgLineIndex < penPaths.get(svgPathIndex).size() - 1) {
@@ -107,12 +108,13 @@
                 svgLineIndex = -1;
                 svgPathIndex = -1;
             }
+          }
         }
 
 
         public void plot() {
             if (sh != null) {
-                
+                // TODO: implement breaking into digestable pieces
                 svgPathIndex = 0;
                 svgLineIndex = 0;
                 super.plot();
@@ -202,6 +204,9 @@
             RPoint[][] pointPaths = shape.getPointsInPaths();
             penPaths = new ArrayList<Path>();
             ArrayList<Path> remainingPaths = new ArrayList<Path>();
+            
+            // TODO: implement breaking into digestable pieces
+            // TODO: first get some more data on the pieces, 
 
             for (RPoint[] pointPath : pointPaths) {
                 if (pointPath != null) {
@@ -214,8 +219,6 @@
                 }
             }
 
-            println("Original number of paths " + remainingPaths.size());
-
             Path path = nearestPath(homeX, homeY, remainingPaths);
             penPaths.add(path);
 
@@ -224,6 +227,11 @@
                 RPoint last = path.last();
                 path = nearestPath(last.x, last.y, remainingPaths);
                 penPaths.add(path);
+            }
+            
+            println("Original number of paths " + penPaths.size());
+            for (int i = 0; i < penPaths.size(); i++) {
+                println("Original path of length " + penPaths.get(i).size());
             }
 
             if (shortestSegment > 0) {
@@ -237,6 +245,12 @@
                 removeShort(shortestSegment);
                 println("number of opt points " + totalPoints(penPaths));
             }
+            
+            println("Optimized number of paths " + penPaths.size());
+            for (int i = 0; i < penPaths.size(); i++) {
+                println("Optimized path of length " + penPaths.get(i).size());
+            }
+            
             totalPathLength();
 
         }

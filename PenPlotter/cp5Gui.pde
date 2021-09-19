@@ -390,11 +390,19 @@
                 ((MyButton)b).setImg(plotImg);
             }
         }
-        else if (b.getCaptionLabel().getText().contains("Abort"))
+        else if (b.getCaptionLabel().getText().contains("Pause"))
         {
-            b.setCaptionLabel("Plot");
-            ((MyButton)b).setImg(plotImg);
-            currentPlot.reset();
+            b.setCaptionLabel("Resume");
+            currentPlot.pause();
+            //((MyButton)b).setImg(plotImg);
+            //currentPlot.reset();
+        }
+        else if (b.getCaptionLabel().getText().contains("Resume"))
+        {
+            b.setCaptionLabel("Pause");
+            currentPlot.pause();
+            //((MyButton)b).setImg(plotImg);
+            //currentPlot.reset();
         }
         else
         {
@@ -410,7 +418,7 @@
                 }
                 else
                 {
-                    b.setCaptionLabel("Abort");
+                    b.setCaptionLabel("Pause");
                     ((MyButton)b).setImg(pauseImg);
                 }
             }

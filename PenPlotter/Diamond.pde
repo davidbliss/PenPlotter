@@ -60,7 +60,6 @@
                 updatePos(p.x + offX, p.y + offY);
                 penIndex++;
             } else {
-                
                 plottingStopped();
             }
         }
