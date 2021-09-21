@@ -88,7 +88,7 @@ class Plot {
           goHome();
           com.sendMotorOff();
       }
-        
+        void updateOffX(){}
         void nextPlot(boolean preview) {}
         void load() {}
         void load(String fileName) {}

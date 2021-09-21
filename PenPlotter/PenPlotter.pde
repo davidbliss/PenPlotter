@@ -518,6 +518,7 @@ void initLogging()
 
     public void updateScale()
     {
+        currentPlot.updateOffX();
         scaleX = svgScale*userScale*flipX;
         scaleY = svgScale*userScale*flipY;
     }

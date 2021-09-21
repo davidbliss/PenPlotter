@@ -65,7 +65,6 @@
             return "0/"+penPaths.size();
         }
         public void nextPlot(boolean preview) {          
-          // TODO: need to be sure nextPlot get calls again when ready to proceed.
           if(isPaused!=true){
             if (svgPathIndex < 0) {
                 plotting= false;
@@ -114,7 +113,6 @@
 
         public void plot() {
             if (sh != null) {
-                // TODO: implement breaking into digestable pieces
                 svgPathIndex = 0;
                 svgLineIndex = 0;
                 super.plot();
@@ -133,6 +131,10 @@
                     p.getPoint(j).y = x;
                 }
             }
+        }
+        
+        public void updateOffX(){
+          if(sh!=null) offX = int(-1 * sh.width / 2 * userScale  / 2.84);
         }
 
         public void draw() {
@@ -174,9 +176,8 @@
             File file = new File(filename);
             if (file.exists()) {
                 sh = RG.loadShape(filename);
-
-                println("loaded " + filename);
                 optimize(sh);
+                updateOffX();
                 loaded = true;
             } else
                 println("Failed to load file " + filename);
@@ -204,9 +205,6 @@
             RPoint[][] pointPaths = shape.getPointsInPaths();
             penPaths = new ArrayList<Path>();
             ArrayList<Path> remainingPaths = new ArrayList<Path>();
-            
-            // TODO: implement breaking into digestable pieces
-            // TODO: first get some more data on the pieces, 
 
             for (RPoint[] pointPath : pointPaths) {
                 if (pointPath != null) {
