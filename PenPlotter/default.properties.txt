@@ -1,4 +1,4 @@
-#Polar Properties
+ #Polar Properties
 #Fri Sep 17 13:31:56 PDT 2021
 cnc.safeHeight=5.0
 com.baudrate=115200
@@ -10,14 +10,14 @@ image.cropTop=10
 image.pixelSize=6
 image.scale=1.0
 machine.height=1120
-machine.homepoint.y=240
+machine.homepoint.y=262
 machine.motors.maxSpeed=1010
 machine.motors.mmPerRev=40.0
 machine.motors.stepsPerRev=3200.0
 machine.offX=-228
 machine.offY=0
 machine.penSize=0.5
-machine.width=890
+machine.width=888
 machine.zoomScale=0.7
 paper.height.inches=24.0
 paper.width.inches=18.0
