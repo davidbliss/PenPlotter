@@ -143,11 +143,14 @@
       send("G4 P0\n");//pause for 0 to be sure that previous draw finishes
       send("M340 P3 S"+servoTouchValue+"\n");
       int servoValue = servoTouchValue;
-      while (servoValue < servoUpValue) {
-        servoValue += 20;
+      while (servoValue > servoUpValue) {
+        servoValue -= 5;
         send("M340 P3 S"+servoValue+"\n");
       }
       // send("M340 P3 S"+servoUpValue+"\n");
+      send("G4 P"+servoDwell+"\n");
+      // extended pause on up to give time for ink to set
+      send("G4 P"+servoDwell+"\n");
       send("G4 P"+servoDwell+"\n");
      }
      showPenDown();
@@ -166,8 +169,8 @@
        } else {
         send("G4 P"+servoDwell+"\n");
         int servoValue = servoUpValue;
-        while (servoValue > servoTouchValue) {
-          servoValue -= 20;
+        while (servoValue < servoTouchValue) {
+          servoValue += 5;
           send("M340 P3 S"+servoValue+"\n");
         }
         send("M340 P3 S"+servoDownValue+"\n");
