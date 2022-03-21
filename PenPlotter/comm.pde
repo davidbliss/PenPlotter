@@ -155,6 +155,12 @@
      }
      showPenDown();
     }
+    
+    
+    public void sendTestPen(int value) {
+      send("G4 P0\n");//pause for 0 to be sure that previous draw finishes
+      send("M340 P3 S"+value+"\n");
+    }
 
 
     public void sendPenDown() {

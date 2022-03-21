@@ -9,6 +9,7 @@
     Slider speedSlider;
     Slider scaleSlider;
     Slider penSlider;
+    Slider touchSlider;
 
     Slider t1Slider;
     Slider t2Slider;
@@ -196,9 +197,6 @@
 
         loadButton = addButton("load", "Load", leftMargin, posY+=ySpace);
         plotButton = addButton("plot", "Plot", leftMargin, posY+=ySpace);
-        addButton("dorotate", "Rotate", leftMargin, posY+=ySpace);
-        addButton("mirrorX","Flip X",leftMargin,posY+=ySpace);
-        addButton("mirrorY","Flip Y",leftMargin,posY+=ySpace);
 
 
         scaleSlider = addSlider(leftMargin,posY += ySpace+10,"scale", "SCALE", 0.1f, 5, userScale);
@@ -217,12 +215,18 @@
         t3Slider = addSlider(imageX+20,imageY+imageHeight+60+3*ySpace/2,"t3", "T3 |", 0, 255, 64).onRelease(thresholdrelease).onReleaseOutside(thresholdrelease);
         t4Slider = addSlider(imageX+20,imageY+imageHeight+60+4*ySpace/2,"t4", "T4 -", 0, 255, 32).onRelease(thresholdrelease).onReleaseOutside(thresholdrelease);
 
+        
+        addButton("doPenDown", "Pen Down", leftMargin, posY+=ySpace);
+        addButton("doPenTouch","Pen Touch",leftMargin,posY+=ySpace);
+        touchSlider = addSlider(leftMargin,posY += ySpace+10,"touchChanged", "Touch", 0f, 2500, servoTouchValue);
+        addButton("doPenUp","Pen Up",leftMargin,posY+=ySpace);
+        
         penUpButton = addButton("penUp", "Pen Up", leftMargin, posY+=ySpace);
 
         addButton("goHome", "Go Home", leftMargin, posY+=ySpace);
         addButton("off", "Motors Off", leftMargin, posY+=ySpace);
         addButton("save", "Save", leftMargin, posY+=ySpace);
-        addButton("export", "Export",leftMargin, posY+=ySpace);
+        //addButton("export", "Export",leftMargin, posY+=ySpace);
         noDrawButton = addButton("nodraw", "No Draw",leftMargin, posY+=ySpace);
 
         stipplePlot.init();
@@ -425,23 +429,7 @@
         }
     }
 
-    public void dorotate()
-    {
-        currentPlot.rotate();
-    }
-
-    public void mirrorX()
-    {
-        flipX *= -1;
-        updateScale();
-        currentPlot.flipX();
-    }
-    public void mirrorY()
-    {
-        flipY *= -1;
-        updateScale();
-        currentPlot.flipY();
-    }
+    
     public void showPenUp()
     {
         penUpButton.setCaptionLabel("Pen Up");
@@ -465,6 +453,24 @@
         {
             com.sendPenDown();
         }
+    }
+    
+    public void doPenUp(ControlEvent theEvent)
+    {
+        com.sendTestPen(servoUpValue);
+        showPenUp();
+    }
+    
+    public void doPenDown(ControlEvent theEvent)
+    {
+        com.sendTestPen(servoDownValue);
+        showPenDown();
+    }
+    
+    public void doPenTouch(ControlEvent theEvent)
+    {
+        com.sendTestPen(servoTouchValue);
+        showPenDown();
     }
     
     public void nodraw(ControlEvent theEvent)
@@ -513,7 +519,12 @@
         if (s != speed)
             speedSlider.setValue(s);
     }
-
+    
+    public void touchChanged(int value)
+    {
+        servoTouchValue = value;
+    }
+    
     public void penWidth(float width)
     {
         int w = (int)(width*10);

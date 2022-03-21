@@ -283,6 +283,7 @@ import java.awt.BorderLayout;
         servoUpValue = Integer.parseInt(props.getProperty("servo.upValue"));
         servoDownValue = Integer.parseInt(props.getProperty("servo.downValue"));
         servoTouchValue = Integer.parseInt(props.getProperty("servo.touchValue"));
+        touchSlider.setValue(servoTouchValue);
 
         paperWidth = Float.parseFloat(props.getProperty("paper.width.inches"));
         paperHeight = Float.parseFloat(props.getProperty("paper.height.inches"));
