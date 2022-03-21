@@ -103,7 +103,8 @@
 
                 com.sendPenUp();
                 com.sendMoveG0(x1, y1);
-                com.sendMotorOff();
+                // do not disable motors so that you stop accidentally moving between pen changes.
+                //com.sendMotorOff();
                 svgLineIndex = -1;
                 svgPathIndex = -1;
             }
