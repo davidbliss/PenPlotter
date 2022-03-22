@@ -153,6 +153,10 @@
       send("G4 P"+servoDwell+"\n");
       send("G4 P"+servoDwell+"\n");
      }
+     
+     //move faster when pen is up
+     com.sendSpeed(speedValue*2);
+     
      showPenDown();
     }
     
@@ -182,6 +186,10 @@
         send("M340 P3 S"+servoDownValue+"\n");
         send("G4 P"+servoDwell+"\n"); // pause to let pen settle
       }
+      
+      // reset to defined speed
+      com.sendSpeed(speedValue);
+      
       showPenUp();
     }
 
