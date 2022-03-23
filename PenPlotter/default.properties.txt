@@ -1,5 +1,5 @@
- #Polar Properties
-#Fri Sep 17 13:31:56 PDT 2021
+#Polar Properties
+#Wed Mar 23 13:59:37 PDT 2022
 cnc.safeHeight=5.0
 com.baudrate=115200
 com.serialPort=2
@@ -21,10 +21,10 @@ machine.width=924
 machine.zoomScale=0.7
 paper.height.inches=24.0
 paper.width.inches=18.0
-servo.downValue=2400
+servo.downValue=2440
 servo.dwell=150
-servo.touchValue=2140
-servo.upValue=2075
+servo.touchValue=1795
+servo.upValue=1400
 svg.UserScale=1.0
 svg.name=/Users/davidbliss/Documents/projects/personal/algorithmic drawing - processing/sketch_210917_ga_spiro/output/9.17.2021_12-25-39-layer-1.svg
 svg.pixelsPerInch=72.0

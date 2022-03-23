@@ -144,7 +144,7 @@
       send("M340 P3 S"+servoTouchValue+"\n");
       int servoValue = servoTouchValue;
       while (servoValue > servoUpValue) {
-        servoValue -= 5;
+        servoValue -= 20;
         send("M340 P3 S"+servoValue+"\n");
       }
       // send("M340 P3 S"+servoUpValue+"\n");
@@ -180,7 +180,7 @@
         send("G4 P"+servoDwell+"\n");
         int servoValue = servoUpValue;
         while (servoValue < servoTouchValue) {
-          servoValue += 5;
+          servoValue += 20;
           send("M340 P3 S"+servoValue+"\n");
         }
         send("M340 P3 S"+servoDownValue+"\n");
